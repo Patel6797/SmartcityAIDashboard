@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCity AI Dashboard</title>
+</head>
+<body>
+    <h1>Real-Time Sensor Data</h1>
+    <div id="sensor-data"></div>
+
+    <script>
+        async function fetchSensorData() {
+            const response = await fetch('/api/data/');
+            const data = await response.json();
+            const sensorDataDiv = document.getElementById('sensor-data');
+            sensorDataDiv.innerHTML = data.map(item => 
+                `<p>${item.sensor_name}: ${item.value} at ${item.timestamp}</p>`
+            ).join('');
+        }
+
+        setInterval(fetchSensorData, 5000);  // Refresh data every 5 seconds
+    </script>
+</body>
+</html>
